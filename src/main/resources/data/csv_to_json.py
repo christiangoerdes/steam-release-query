@@ -12,10 +12,10 @@ def csv_to_json(csv_file, json_file):
                 'name': row['game'],
                 'link': row['link'],
                 'release': row['release'],
-                'peak_players': int(row['peak_players'].replace(',', '')),
-                'positive_reviews': int(row['positive_reviews'].replace(',', '')),
-                'negative_reviews': int(row['negative_reviews'].replace(',', '')),
-                'total_reviews': int(row['total_reviews'].replace(',', '')),
+                'peakPlayers': int(row['peak_players'].replace(',', '')),
+                'positiveReviews': int(row['positive_reviews'].replace(',', '')),
+                'negativeReviews': int(row['negative_reviews'].replace(',', '')),
+                'totalReviews': int(row['total_reviews'].replace(',', '')),
                 'rating': row['rating'],
             }
             data.append(game_data)
