@@ -7,8 +7,9 @@ import org.springframework.stereotype.Controller
 @Controller
 class ReleaseController {
 
-    @QueryMapping
-    fun releases(): Iterable<Release> {
 
+    @QueryMapping
+    fun releases(): Iterable<Release>? {
+        return null;
     }
 }
