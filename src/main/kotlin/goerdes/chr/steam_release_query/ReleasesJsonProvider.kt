@@ -1,16 +1,14 @@
-package goerdes.chr.steam_release_query
-
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.jayway.jsonpath.Configuration
 import com.jayway.jsonpath.JsonPath
 import com.jayway.jsonpath.Option
+import jakarta.annotation.PostConstruct
 import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Component
-import jakarta.annotation.PostConstruct
 import java.io.IOException
 
 @Component
-class ReleasesJsonProvider(private val objectMapper: ObjectMapper) {
+class ReleaseJsonProvider(private val objectMapper: ObjectMapper) {
 
     private lateinit var jsonData: Any
 
@@ -33,4 +31,3 @@ class ReleasesJsonProvider(private val objectMapper: ObjectMapper) {
         private const val JSON_FILE_NAME = "releases.json"
     }
 }
-
