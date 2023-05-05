@@ -1,9 +1,9 @@
-import java.time.LocalDate
+import java.util.*
 
-data class Game(
+data class Release(
     val name: String,
     val link: String,
-    val release: LocalDate,
+    val release: Date,
     val peakPlayers: Int,
     val positiveReviews: Int,
     val negativeReviews: Int,
