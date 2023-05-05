@@ -1,3 +1,4 @@
+package goerdes.chr.steam_release_query
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.jayway.jsonpath.Configuration
 import com.jayway.jsonpath.JsonPath
@@ -28,6 +29,6 @@ class ReleaseJsonProvider(private val objectMapper: ObjectMapper) {
     }
 
     companion object {
-        private const val JSON_FILE_NAME = "releases.json"
+        private const val JSON_FILE_NAME = "data/releases.json"
     }
 }
