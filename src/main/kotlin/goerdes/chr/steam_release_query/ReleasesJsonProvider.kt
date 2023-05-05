@@ -1,34 +1,24 @@
 package goerdes.chr.steam_release_query
+import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.jayway.jsonpath.Configuration
 import com.jayway.jsonpath.JsonPath
-import com.jayway.jsonpath.Option
 import jakarta.annotation.PostConstruct
-import org.springframework.core.io.ClassPathResource
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.core.io.Resource
 import org.springframework.stereotype.Component
-import java.io.IOException
 
 @Component
-class ReleaseJsonProvider(private val objectMapper: ObjectMapper) {
+class ReleaseJsonProvider(@Value("classpath:data/releases.json") private val jsonResource: Resource) {
 
-    private lateinit var jsonData: Any
+    lateinit var jsonData: JsonNode
+    private val objectMapper = ObjectMapper()
 
     @PostConstruct
-    private fun loadJsonData() {
-        try {
-            val jsonFile = ClassPathResource(JSON_FILE_NAME).file
-            jsonData = objectMapper.readValue(jsonFile, Any::class.java)
-        } catch (e: IOException) {
-            throw RuntimeException("Failed to read data from JSON file", e)
-        }
+    fun init() {
+        jsonData = objectMapper.readTree(jsonResource.inputStream)
     }
 
-    fun <T> query(jsonPathExpression: String, returnType: Class<T>): T {
-        val configuration = Configuration.defaultConfiguration().addOptions(Option.SUPPRESS_EXCEPTIONS)
-        return JsonPath.using(configuration).parse(jsonData).read(jsonPathExpression, returnType)
-    }
-
-    companion object {
-        private const val JSON_FILE_NAME = "data/releases.json"
+    fun <T> query(jsonPathExpression: String, targetType: Class<T>): T {
+        return JsonPath.parse(jsonData.toString()).read(jsonPathExpression, targetType)
     }
 }

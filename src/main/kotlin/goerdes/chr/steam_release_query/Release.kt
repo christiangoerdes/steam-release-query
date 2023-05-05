@@ -1,12 +1,13 @@
+package goerdes.chr.steam_release_query
 import java.util.*
 
 data class Release(
-    val name: String,
-    val link: String,
-    val release: Date,
-    val peakPlayers: Int,
-    val positiveReviews: Int,
-    val negativeReviews: Int,
-    val totalReviews: Int,
-    val rating: String
+    var name: String = "",
+    var link: String = "",
+    var release: String = "",
+    var peakPlayers: Int = 0,
+    var positiveReviews: Int = 0,
+    var negativeReviews: Int = 0,
+    var totalReviews: Int = 0,
+    var rating: String = ""
 )
