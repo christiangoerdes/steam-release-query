@@ -1,8 +1,8 @@
 type Query {
-    games: [Game]
+    releases: [Release]
 }
 
-type Game {
+type Release {
     name: String
     link: String
     release: String
