@@ -9,4 +9,4 @@ data class Release(
     val negativeReviews: Int,
     val totalReviews: Int,
     val rating: String
-    )
+)
