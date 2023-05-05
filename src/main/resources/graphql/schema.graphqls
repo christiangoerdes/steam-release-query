@@ -1,0 +1,14 @@
+type Query {
+    games: [Game]
+}
+
+type Game {
+    name: String
+    link: String
+    release: String
+    peakPlayers: Int
+    positiveReviews: Int
+    negativeReviews: Int
+    totalReviews: Int
+    rating: String
+}
