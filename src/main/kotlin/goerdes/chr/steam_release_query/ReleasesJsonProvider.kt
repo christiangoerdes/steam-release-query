@@ -8,7 +8,7 @@ import org.springframework.core.io.Resource
 import org.springframework.stereotype.Component
 
 @Component
-class ReleaseJsonProvider(@Value("classpath:data/releases.json") private val jsonResource: Resource) {
+class ReleaseJsonProvider(@Value("classpath:data/steam-releases.json") private val jsonResource: Resource) {
 
     lateinit var jsonData: JsonNode
     private val objectMapper = ObjectMapper()
