@@ -1,4 +1,5 @@
-# steam-release-query
+# steam-release-query GraphQL API
+This is a GraphQL API called steam-release-query which provides information about Steam game release dates, names, ratings, and more. The API can be queried using GraphiQL, a user-friendly in-browser IDE for exploring and testing GraphQL APIs.
 
 ## Update the dataset
 
