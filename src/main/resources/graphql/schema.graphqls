@@ -1,9 +1,10 @@
 type Query {
     releases: [Release]
+    releasesByName(name : String!): [Release]
 }
 
 type Release {
-    name: String
+    name: String!
     link: String
     release: String
     peakPlayers: Int
