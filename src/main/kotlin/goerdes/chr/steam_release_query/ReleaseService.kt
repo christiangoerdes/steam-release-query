@@ -11,4 +11,12 @@ class ReleaseService(val provider: ReleaseJsonProvider) {
     fun getByName(name: String): Any {
         return provider.query("$[?(@.name =~ /.*$name.*/i)]", Array<Release>::class.java).toList()
     }
+
+    fun getByRating(rating: String): Any {
+        return provider.query("$[?(@.rating =~ /$rating.*/i)]", Array<Release>::class.java)
+            .toList()
+            .sortedByDescending{
+                it.rating
+            }
+    }
 }

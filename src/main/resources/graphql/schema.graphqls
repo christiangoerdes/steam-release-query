@@ -1,6 +1,7 @@
 type Query {
     releases: [Release]
     releasesByName(name : String!): [Release]
+    releasesByRating(rating : String!): [Release]
 }
 
 type Release {
