@@ -1,8 +1,19 @@
 type Query {
-    releases: [Release]
-    releasesByName(title : String!): [Release]
-    releasesByRating(rating : String!): [Release]
-    releasesBy(field : ReleaseFields!): [Release]
+    releases(page: Int, pageSize: Int): PaginatedData
+    releasesByName(title : String!, page: Int, pageSize: Int): PaginatedData
+    releasesByRating(rating : String!, page: Int, pageSize: Int): PaginatedData
+    releasesBy(field : ReleaseFields!, page: Int, pageSize: Int): PaginatedData
+}
+
+type PaginatedData {
+    pageInfo: PageInfo!
+    items: [Release]
+}
+
+type PageInfo {
+    page: Int!
+    size: Int!
+    total: Int!
 }
 
 type Release {
