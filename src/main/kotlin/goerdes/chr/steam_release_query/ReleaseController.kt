@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller
 class ReleaseController(val service: ReleaseService) {
 
     @QueryMapping
-    fun releases() = service.getAll()
+    fun releases(@Argument pageInput: PageInput?) = service.getAll(pageInput)
 
     @QueryMapping
     fun releasesByName(@Argument title: String, pageInput: PageInput) = service.getByName(title)

@@ -5,8 +5,19 @@ import kotlin.reflect.full.memberProperties
 
 @Service
 class ReleaseService(val provider: ReleaseJsonProvider) {
-    fun getAll(): List<Release> {
-        return provider.query("$[*]", Array<Release>::class.java).toList()
+    fun getAll(pageInput: PageInput?): PaginatedData {
+        val tmp = pageInput ?: PageInput()
+        return PaginatedData(
+            PageInfo(
+                tmp.page,
+                tmp.size,
+                provider.query("$[*]", Array<Release>::class.java).toList().size
+            ),
+            provider.query("$[*]", Array<Release>::class.java).toList().subList(
+                (tmp.page-1)*tmp.size,
+                tmp.page*tmp.size
+            )
+        )
     }
 
     fun getByName(title: String): Any {
