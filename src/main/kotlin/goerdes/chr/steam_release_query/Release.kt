@@ -2,7 +2,7 @@ package goerdes.chr.steam_release_query
 import java.util.*
 
 data class Release(
-    var name: String = "",
+    var title: String = "",
     var link: String = "",
     var release: String = "",
     var peakPlayers: Int = 0,
@@ -11,3 +11,14 @@ data class Release(
     var totalReviews: Int = 0,
     var rating: String = ""
 )
+
+enum class ReleaseFields(val asc: Boolean) {
+    title(true),
+    link(true),
+    release(false),
+    peakPlayers(false),
+    positiveReviews(false),
+    negativeReviews(false),
+    totalReviews(false),
+    rating(false)
+}

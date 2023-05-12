@@ -1,12 +1,12 @@
 type Query {
     releases: [Release]
-    releasesByName(name : String!): [Release]
+    releasesByName(title : String!): [Release]
     releasesByRating(rating : String!): [Release]
-    releasesBy(field : String): [Release]
+    releasesBy(field : ReleaseFields!): [Release]
 }
 
 type Release {
-    name: String!
+    title: String
     link: String
     release: String
     peakPlayers: Int
@@ -14,4 +14,15 @@ type Release {
     negativeReviews: Int
     totalReviews: Int
     rating: String
+}
+
+enum ReleaseFields {
+    title
+    link
+    release
+    peakPlayers
+    positiveReviews
+    negativeReviews
+    totalReviews
+    rating
 }

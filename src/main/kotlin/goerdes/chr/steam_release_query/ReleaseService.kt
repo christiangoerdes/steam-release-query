@@ -9,8 +9,8 @@ class ReleaseService(val provider: ReleaseJsonProvider) {
         return provider.query("$[*]", Array<Release>::class.java).toList()
     }
 
-    fun getByName(name: String): Any {
-        return provider.query("$[?(@.name =~ /.*$name.*/i)]", Array<Release>::class.java).toList()
+    fun getByName(title: String): Any {
+        return provider.query("$[?(@.title =~ /.*$title.*/i)]", Array<Release>::class.java).toList()
     }
 
     fun getByRating(rating: String): Any {
@@ -21,14 +21,18 @@ class ReleaseService(val provider: ReleaseJsonProvider) {
             }
     }
 
-    fun releasesBy(field: String?): Any {
+    fun releasesBy(field: ReleaseFields): Any {
         return provider.query("$[*]", Array<Release>::class.java)
             .toList()
-            .sortedByDescending {
-                if (field != null) {
-                    it.asMap()[field].toString()
+            .let{ x ->
+                if(field.asc) {
+                    x.sortedBy {
+                        it.asMap()[field.name].toString()
+                    }
                 }else{
-                    it.rating
+                    x.sortedByDescending {
+                        it.asMap()[field.name].toString()
+                    }
                 }
             }
     }

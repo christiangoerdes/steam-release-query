@@ -11,11 +11,11 @@ class ReleaseController(val service: ReleaseService) {
     fun releases() = service.getAll()
 
     @QueryMapping
-    fun releasesByName(@Argument name: String) = service.getByName(name)
+    fun releasesByName(@Argument title: String) = service.getByName(title)
 
     @QueryMapping
     fun releasesByRating(@Argument rating: String) = service.getByRating(rating)
 
     @QueryMapping
-    fun releasesBy(@Argument field: String?) = service.releasesBy(field)
+    fun releasesBy(@Argument field: ReleaseFields) = service.releasesBy(field)
 }
