@@ -1,8 +1,13 @@
 type Query {
-    releases(page: Int, pageSize: Int): PaginatedData
-    releasesByName(title : String!, page: Int, pageSize: Int): PaginatedData
-    releasesByRating(rating : String!, page: Int, pageSize: Int): PaginatedData
-    releasesBy(field : ReleaseFields!, page: Int, pageSize: Int): PaginatedData
+    releases(pageInput: PageInput): PaginatedData
+    releasesByName(title : String!, pageInput: PageInput): PaginatedData
+    releasesByRating(rating : String!, pageInput: PageInput): PaginatedData
+    releasesBy(field : ReleaseFields!, pageInput: PageInput): PaginatedData
+}
+
+input PageInput {
+    page: Int = 1
+    size: Int = 10
 }
 
 type PaginatedData {
