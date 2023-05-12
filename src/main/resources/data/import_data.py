@@ -13,7 +13,7 @@ def csv_to_json(csv_file, json_file):
         csv_reader = csv.DictReader(f)
         for row in csv_reader:
             game_data = {
-                'name': row['game'],
+                'title': row['game'],
                 'link': row['link'],
                 'release': row['release'],
                 'peakPlayers': int(row['peak_players'].replace(',', '')),
