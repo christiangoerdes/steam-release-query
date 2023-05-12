@@ -6,12 +6,12 @@ import kotlin.reflect.full.memberProperties
 @Service
 class ReleaseService(val provider: ReleaseJsonProvider) {
     fun getAll(pageInput: PageInput?): PaginatedData {
-        val tmp = pageInput ?: PageInput()
-        return paginatedQuery("$[*]", tmp)
+        return paginatedList(provider.query("$[*]", Array<Release>::class.java).toList(), pageInput)
     }
 
-    private fun paginatedQuery(query: String, tmp: PageInput) =
-        provider.query(query, Array<Release>::class.java).toList().let {
+    private fun paginatedList(list: List<Release>, pageInput: PageInput?): PaginatedData {
+        val tmp = pageInput ?: PageInput()
+        return list.let {
             PaginatedData(
                 PageInfo(
                     tmp.page,
@@ -24,21 +24,27 @@ class ReleaseService(val provider: ReleaseJsonProvider) {
                 )
             )
         }
-
-    fun getByName(title: String): Any {
-        return provider.query("$[?(@.title =~ /.*$title.*/i)]", Array<Release>::class.java).toList()
     }
 
-    fun getByRating(rating: String): Any {
-        return provider.query("$[?(@.rating =~ /$rating.*/i)]", Array<Release>::class.java)
+
+    fun getByName(title: String, pageInput: PageInput?): Any {
+        return paginatedList(provider.query("$[?(@.title =~ /.*$title.*/i)]", Array<Release>::class.java).toList(), pageInput)
+    }
+
+    fun getByRating(rating: String, pageInput: PageInput?): Any {
+        return paginatedList(
+            provider.query("$[?(@.rating =~ /$rating.*/i)]", Array<Release>::class.java)
             .toList()
             .sortedByDescending{
                 it.rating
-            }
+            },
+            pageInput
+        )
     }
 
-    fun releasesBy(field: ReleaseFields): Any {
-        return provider.query("$[*]", Array<Release>::class.java)
+    fun releasesBy(field: ReleaseFields, pageInput: PageInput?): Any {
+        return paginatedList(
+            provider.query("$[*]", Array<Release>::class.java)
             .toList()
             .let{ x ->
                 if(field.asc) {
@@ -50,7 +56,9 @@ class ReleaseService(val provider: ReleaseJsonProvider) {
                         it.asMap()[field.name].toString()
                     }
                 }
-            }
+            },
+            pageInput
+        )
     }
     private inline fun <reified T : Any> T.asMap() : Map<String, Any?> {
         val props = T::class.memberProperties.associateBy { it.name }
