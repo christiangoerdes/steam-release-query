@@ -7,18 +7,23 @@ import kotlin.reflect.full.memberProperties
 class ReleaseService(val provider: ReleaseJsonProvider) {
     fun getAll(pageInput: PageInput?): PaginatedData {
         val tmp = pageInput ?: PageInput()
-        return PaginatedData(
-            PageInfo(
-                tmp.page,
-                tmp.size,
-                provider.query("$[*]", Array<Release>::class.java).toList().size
-            ),
-            provider.query("$[*]", Array<Release>::class.java).toList().subList(
-                (tmp.page-1)*tmp.size,
-                tmp.page*tmp.size
-            )
-        )
+        return paginatedQuery("$[*]", tmp)
     }
+
+    private fun paginatedQuery(query: String, tmp: PageInput) =
+        provider.query(query, Array<Release>::class.java).toList().let {
+            PaginatedData(
+                PageInfo(
+                    tmp.page,
+                    tmp.size,
+                    it.size
+                ),
+                it.subList(
+                    (tmp.page - 1) * tmp.size,
+                    tmp.page * tmp.size
+                )
+            )
+        }
 
     fun getByName(title: String): Any {
         return provider.query("$[?(@.title =~ /.*$title.*/i)]", Array<Release>::class.java).toList()
