@@ -15,4 +15,7 @@ class ReleaseController(val service: ReleaseService) {
 
     @QueryMapping
     fun releasesByRating(@Argument rating: String) = service.getByRating(rating)
+
+    @QueryMapping
+    fun releasesBy(@Argument field: String?) = service.releasesBy(field)
 }
