@@ -12,21 +12,18 @@ To run and test the Spring Boot GraphQL API, follow these steps:
 - API Access: Once the API is running, you can access it using HTTP requests. The API exposes a GraphQL endpoint that accepts GraphQL queries and mutations.
 - GraphQL Playground: Open a web browser and navigate to http://localhost:8080/graphiql. You can use the Playground to send queries and mutations and see the results. An example query would be:
 
-
-
-    {
-      releases {
-        name
-        link
-        release
-        peakPlayers
-        positiveReviews
-        negativeReviews
-        totalReviews
-        rating
-      } 
-    }
-
+        {
+          releases {
+            name
+            link
+            release
+            peakPlayers
+            positiveReviews
+            negativeReviews
+            totalReviews
+            rating
+          } 
+        }
 
 
 ## Update the dataset
