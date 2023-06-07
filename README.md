@@ -42,6 +42,3 @@ To update the dataset, follow these steps:
 - The updated dataset will be available in the resources/data directory as steam-releases.json.
 
 Please note that the script will delete the previous version of the dataset before downloading the new one.
-
-
-
